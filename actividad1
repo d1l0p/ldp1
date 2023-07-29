@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <iostream>
+
+int main()
+{
+    int edad;
+    std::cout <<"Ingresa tu edad:";
+    std::cin >>edad;
+    
+    if (edad>18){
+        std::cout <<"Usted SI es mayor de edad y PUEDE PASAR"<<std::endl;
+    }else{
+        std::cout<<"Usted AUN NO es mayor de edad DETENGASE"<<std::endl;
+    }
+
+}
