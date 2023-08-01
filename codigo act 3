@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+
+class EmpleadoAMC {
+private:
+    std::string nombre;
+    std::string apellidopaterno;
+    std::string apellidomaterno;
+    std::string fechadenacimiento;
+    
+public:
+    void capturarDatos() {
+        std::cout << "INGRESA NOMBRE: ";
+        std::getline(std::cin >> std::ws, nombre);
+        
+        std::cout << "INGRESA APELLIDO PATERNO: ";
+        std::getline(std::cin >> std::ws, apellidopaterno);
+        
+        std::cout << "INGRESA APELLIDO MATERNO: ";
+        std::getline(std::cin >> std::ws, apellidomaterno);
+        
+        std::cout << "INGRESA FECHA DE NACIMIENTO (DD/MM/AAAA): ";
+        std::getline(std::cin >> std::ws, fechadenacimiento);
+    }
+    
+    std::string generarRFC() {
+        std::string rfc;
+        
+        //Primeros 2 caracteres
+        rfc += apellidopaterno[0];
+        rfc += apellidopaterno[1];
+        for (char c : apellidopaterno) {
+            if (c == 'A'|| c == 'E'|| c == 'I'|| c == 'O'|| c == 'U'){
+                rfc += c;
+                break;
+            }
+        }
+        
+        //3ra posición
+        if (apellidomaterno.empty()) {
+            rfc += 'X';
+        } else {
+            rfc += apellidomaterno[0];
+        }
+        
+        //4ta posición
+        rfc += (nombre[0] == '#') ? 'X' : nombre[0];
+        
+        //5ta y 6ta posición (año de nacimiento)
+        rfc += fechadenacimiento.substr(8, 2);
+        
+        //7ma y 8va posición (mes de nacimiento)
+        rfc += fechadenacimiento.substr(3, 2);
+        
+        //9na y 10ma posición (dia de nacimiento)
+        rfc += fechadenacimiento.substr(0, 2);
+        
+        return rfc;
+    }
+};
+
+int main () {
+    EmpleadoAMC EmpleadoAMC;
+    
+    EmpleadoAMC.capturarDatos();
+    std::string rfc = EmpleadoAMC.generarRFC();
+    
+    std::cout << "El RFC generado es: " <<rfc <<std::endl;
+    
+    return 0;
+}
